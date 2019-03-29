@@ -1,57 +1,29 @@
 package sk.itsovy.projectKaufland;
 
-import com.google.gson.Gson;
-
-import java.io.BufferedReader;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Internet {
-    public void sendGet()
+public class Internet
+{
+    public static Double getUSDrate() throws IOException
     {
-        try
-        {
-            URL urlForGetRequest = new URL("https://api.exchangeratesapi.io/latest?symbols=USD");
-            String readLine = null;
-            HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
-            conection.setRequestMethod("GET");
-            int responseCode = conection.getResponseCode();
+        URL urlForGetRequest = new URL("https://api.exchangeratesapi.io/latest?symbols=USD");
+        double result;
+        HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+        connection.connect();
 
-            if (responseCode == HttpURLConnection.HTTP_OK)
-            {
+        JsonParser jp = new JsonParser();
+        JsonElement root = jp.parse(new InputStreamReader((InputStream) connection.getContent()));
+        JsonObject jsonObj = root.getAsJsonObject();
+        jsonObj = jsonObj.getAsJsonObject("rates");
+        result = jsonObj.get("USD").getAsDouble();
 
-                BufferedReader in;
-                in = new BufferedReader(new InputStreamReader(conection.getInputStream()));
-
-                StringBuffer response = new StringBuffer();
-
-                while ((readLine = in .readLine()) != null)
-                {
-                    response.append(readLine);
-
-                }
-                in .close();
-                System.out.println("JSON String Result " + response.toString());;
-
-                //Gson gson = new Gson();
-                //myJson json  =gson.fromJson(response.toString(), Internet);
-
-            }
-            else
-            {
-
-                System.out.println("GET NOT WORKED");
-
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-
-
+        return  result;
     }
 }
-class myJson{}

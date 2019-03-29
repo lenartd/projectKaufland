@@ -1,6 +1,6 @@
-package sk.itsovy.items.Drink;
+package sk.itsovy.Items.Drink;
 
-import sk.itsovy.items.Pce;
+import sk.itsovy.Items.Pce;
 
 public class Bottle extends Drink implements Pce {
     private int amount;

@@ -1,4 +1,4 @@
-package sk.itsovy.items;
+package sk.itsovy.Items;
 
 public interface ItemInterface {
     public abstract  String getName();

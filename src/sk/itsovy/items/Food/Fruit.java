@@ -1,6 +1,4 @@
-package sk.itsovy.items.Food;
-
-import sk.itsovy.items.Food.Food;
+package sk.itsovy.Items.Food;
 
 public class Fruit extends Food {
     private double weight;

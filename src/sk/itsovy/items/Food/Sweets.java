@@ -1,6 +1,6 @@
-package sk.itsovy.items.Food;
+package sk.itsovy.Items.Food;
 
-import sk.itsovy.items.Pce;
+import sk.itsovy.Items.Pce;
 
 public class Sweets extends Food implements Pce {
     private int amount;

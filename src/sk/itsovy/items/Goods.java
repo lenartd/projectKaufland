@@ -1,4 +1,4 @@
-package sk.itsovy.items;
+package sk.itsovy.Items;
 import sk.itsovy.projectKaufland.Category;
 
 public class Goods extends Item implements Pce {

@@ -1,11 +1,13 @@
 package sk.itsovy.projectKaufland;
 
+import sk.itsovy.Database.Database;
 import sk.itsovy.Exception.BillException;
-import sk.itsovy.items.Drink.DraftInterface;
-import sk.itsovy.items.Food.Fruit;
-import sk.itsovy.items.Item;
-import sk.itsovy.items.Pce;
+import sk.itsovy.Items.Drink.DraftInterface;
+import sk.itsovy.Items.Food.Fruit;
+import sk.itsovy.Items.Item;
+import sk.itsovy.Items.Pce;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import java.util.List;
 public class Bill {
     private List<Item> list;
     boolean open;
+    Date date;
+    private double sum;
 
     public Bill() {
         this.list = new ArrayList<>();
@@ -28,7 +32,7 @@ public class Bill {
         {
             if(getItemCount() == Globals.MAXITEMS)
             {
-                throw new BillException("Bill is full, max "+Globals.MAXITEMS+" items");
+                throw new BillException("Bill is full, max "+Globals.MAXITEMS+" Items");
             }
             else if(open == false)
             {
@@ -41,16 +45,27 @@ public class Bill {
         }
     }
 
+    public List<Item> getList() {
+        return list;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
     public void end()
     {
         if(open == true)
         {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = Calendar.getInstance().getTime();
-            String currdate = dateFormat.format(date);
-
-            System.out.println(currdate);
-            //addItem(currdate);
+            try
+            {
+                Database db = Database.getInstanceDB();
+                db.insertNewBill(this);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             open = false;
         }
         else
@@ -67,12 +82,24 @@ public class Bill {
     }
 
     public double getFinalPrice(){
-        throw new UnsupportedOperationException("Method does not exists yet");
+        sum=0;
+        for(Item item: list)
+        {
+            sum+=item.getTotalPrice();
+        }
+        return sum;
     }
 
     public int getItemCount()
     {
         return list.size();
+    }
+
+    public double getTotalPriceUSD() throws IOException
+    {
+        double totalPrice = getFinalPrice();
+        double sum = totalPrice * Internet.getUSDrate();
+        return sum;
     }
 
     public void printItems()
@@ -100,6 +127,11 @@ public class Bill {
                             System.out.print(item.getName() + " " + ((Pce)item).getAmount() + " ");
                             System.out.println(item.getPrice() + " " + item.getTotalPrice());
                         }
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    Date date1 = Calendar.getInstance().getTime();
+                    String currdate = dateFormat.format(date1);
+                    date = date1;
+                    System.out.println(currdate);
                 }
             }
     }

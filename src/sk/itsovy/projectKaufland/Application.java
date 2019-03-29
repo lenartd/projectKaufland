@@ -1,28 +1,15 @@
 package sk.itsovy.projectKaufland;
 
 import sk.itsovy.Exception.BillException;
-import sk.itsovy.items.Drink.Bottle;
-import sk.itsovy.items.Drink.Draft;
-import sk.itsovy.items.Drink.Drink;
-import sk.itsovy.items.Food.Fruit;
-import sk.itsovy.items.Food.Pastry;
-import sk.itsovy.items.Goods;
-import sk.itsovy.items.Item;
+import sk.itsovy.Items.Drink.Bottle;
+import sk.itsovy.Items.Drink.Draft;
+import sk.itsovy.Items.Food.Fruit;
+import sk.itsovy.Items.Food.Pastry;
+import sk.itsovy.Items.Goods;
+import sk.itsovy.Items.Item;
 
 public class Application {
-    /*
-    private static Application app = new Application();
 
-    private Application()
-    {
-
-    }
-
-    public static Application getInstance()
-    {
-        return app;
-    }
-     */
     public void example() throws BillException
     {
 
@@ -40,13 +27,27 @@ public class Application {
         Bottle kozel = new Bottle("Kozel 10", 0.80, false, 1);
         bill.addItem(kozel);
         bill.removeItem(kozel);
-        bill.printItems();
-        bill.end();
 
-        Bill bill2 = new Bill();
-        bill2.addItem(new Bottle("Coca Cola", 0.7, 1));
-        bill2.end();
-        bill2.addItem(new Bottle("Fanta", 0.5, 2));
-        bill2.printItems();
+        bill.addItem(new Bottle("Coca Cola", 0.7, 1));
+        bill.addItem(new Bottle("Fanta", 0.5, 2));
+
+        bill.printItems();
+
+        System.out.println("Total price: "+bill.getFinalPrice());
+
+        try
+        {
+            System.out.println("Price in USD: " + bill.getTotalPriceUSD());
+
+            XML totalBill = new XML();
+            totalBill.createXML(bill);
+            bill.end();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("Something went wrong");
+        }
+
     }
 }

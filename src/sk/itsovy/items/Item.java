@@ -1,4 +1,4 @@
-package sk.itsovy.items;
+package sk.itsovy.Items;
 
 public abstract class Item implements ItemInterface {
     private String name;

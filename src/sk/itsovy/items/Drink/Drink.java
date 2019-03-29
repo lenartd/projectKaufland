@@ -1,6 +1,6 @@
-package sk.itsovy.items.Drink;
+package sk.itsovy.Items.Drink;
 
-import sk.itsovy.items.Item;
+import sk.itsovy.Items.Item;
 
 public abstract class Drink extends Item {
     private boolean sweet;
