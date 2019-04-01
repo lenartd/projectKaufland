@@ -28,4 +28,8 @@ public class Sweets extends Food implements Pce {
     public String getName() {
         return super.getName();
     }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 }

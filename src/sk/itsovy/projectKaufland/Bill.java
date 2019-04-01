@@ -2,6 +2,7 @@ package sk.itsovy.projectKaufland;
 
 import sk.itsovy.Database.Database;
 import sk.itsovy.Exception.BillException;
+import sk.itsovy.Items.Drink.Bottle;
 import sk.itsovy.Items.Drink.DraftInterface;
 import sk.itsovy.Items.Food.Fruit;
 import sk.itsovy.Items.Item;
@@ -40,6 +41,7 @@ public class Bill {
             }
             else
                 {
+                    System.out.println(searchForSimilar(item));
                     list.add(item);
                 }
         }
@@ -100,6 +102,38 @@ public class Bill {
         double totalPrice = getFinalPrice();
         double sum = totalPrice * Internet.getUSDrate();
         return sum;
+    }
+
+    public int searchForSimilar(Item item)
+    {
+        int found = -1;
+
+        for(int j = 0; j<list.size(); j++)
+        {
+
+            if(item.getName().toLowerCase() == list.get(j).getName().toLowerCase())
+            {
+                if((item instanceof DraftInterface) == (list.get(j) instanceof DraftInterface))
+                {
+                    ((Fruit)list.get(j)).setWeight(((Fruit) item).getWeight() + ((Fruit)list.get(j)).getWeight());
+                    found = 1;
+                }
+                else if((item instanceof Pce) == (list.get(j) instanceof Pce))
+                {
+                    found = 1;
+                }
+                else if((item instanceof Fruit) == (list.get(j) instanceof Fruit))
+                {
+                    found = 1;
+                }
+            }
+        }
+        return found;
+    }
+
+    public void updateBill()
+    {
+
     }
 
     public void printItems()

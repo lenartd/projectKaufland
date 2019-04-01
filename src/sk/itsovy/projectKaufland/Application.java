@@ -19,18 +19,22 @@ public class Application {
         Item pizza = new Pastry("Gazdovska", 1.10, 280, 2);
         bill.addItem(pizza);
         Fruit apple = new Fruit("Red apple", 59, 0.370);
-        bill.addItem(apple);
+        //bill.addItem(apple);
+
         Goods pencil = new Goods("Pencil", 0.50, 1, Category.school);
         bill.addItem(pencil);
-        Draft vinea = new Draft("Vinea", 1.50, true, 0.3);
-        bill.addItem(vinea);
+        Goods pencil2 = new Goods("Pencil", 0.50, 1, Category.school);
+        bill.addItem(pencil);
+        //Draft vinea = new Draft("Vinea", 1.50, true, 0.3);
+        //bill.addItem(vinea);
         Bottle kozel = new Bottle("Kozel 10", 0.80, false, 1);
         bill.addItem(kozel);
         bill.removeItem(kozel);
 
         bill.addItem(new Bottle("Coca Cola", 0.7, 1));
+        bill.addItem(new Draft("Coca Cola", 0.7, true, 0.3));
         bill.addItem(new Bottle("Fanta", 0.5, 2));
-
+/*
         bill.printItems();
 
         System.out.println("Total price: "+bill.getFinalPrice());
@@ -48,6 +52,6 @@ public class Application {
             e.printStackTrace();
             System.out.println("Something went wrong");
         }
-
+*/
     }
 }
