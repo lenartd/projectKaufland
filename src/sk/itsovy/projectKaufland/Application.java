@@ -32,10 +32,11 @@ public class Application {
         bill.removeItem(kozel);
 
         bill.addItem(new Bottle("Coca Cola", 0.7, 1));
-        bill.addItem(new Draft("Coca Cola", 0.7, true, 0.3));
+        bill.addItem(new Bottle("Coca Cola", 0.7, 2));
         bill.addItem(new Bottle("Fanta", 0.5, 2));
-/*
+
         bill.printItems();
+
 
         System.out.println("Total price: "+bill.getFinalPrice());
 
@@ -52,6 +53,6 @@ public class Application {
             e.printStackTrace();
             System.out.println("Something went wrong");
         }
-*/
+
     }
 }

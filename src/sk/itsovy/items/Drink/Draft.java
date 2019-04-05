@@ -22,4 +22,14 @@ public class Draft extends Drink implements DraftInterface {
     public void setVolume(double volume) {
         this.volume = volume;
     }
+
+    @Override
+    public double getPrice() {
+        return super.getPrice();
+    }
+
+    @Override
+    public void setPrice(double price) {
+        super.setPrice(price);
+    }
 }

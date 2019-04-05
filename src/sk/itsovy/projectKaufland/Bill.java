@@ -21,9 +21,13 @@ public class Bill {
     boolean open;
     Date date;
     private double sum;
+    private static int count =0;
+    private int id;
 
     public Bill() {
         this.list = new ArrayList<>();
+        count++;
+        id=count;
         open = true;
     }
 
@@ -41,8 +45,15 @@ public class Bill {
             }
             else
                 {
-                    System.out.println(searchForSimilar(item));
-                    list.add(item);
+                    int numberOfTheItem = searchForSimilar(item);
+                    if(numberOfTheItem == -1)
+                    {
+                        list.add(item);
+                    }
+                    else
+                        {
+                            updateBill(numberOfTheItem, item);
+                        }
                 }
         }
     }
@@ -106,34 +117,41 @@ public class Bill {
 
     public int searchForSimilar(Item item)
     {
-        int found = -1;
-
         for(int j = 0; j<list.size(); j++)
         {
-
-            if(item.getName().toLowerCase() == list.get(j).getName().toLowerCase())
+            if(item.getName().toLowerCase().equals(list.get(j).getName().toLowerCase()))
             {
-                if((item instanceof DraftInterface) == (list.get(j) instanceof DraftInterface))
+                if(item.getClass().getName().equals(list.get(j).getClass().getName()))
                 {
-                    ((Fruit)list.get(j)).setWeight(((Fruit) item).getWeight() + ((Fruit)list.get(j)).getWeight());
-                    found = 1;
-                }
-                else if((item instanceof Pce) == (list.get(j) instanceof Pce))
-                {
-                    found = 1;
-                }
-                else if((item instanceof Fruit) == (list.get(j) instanceof Fruit))
-                {
-                    found = 1;
+                    System.out.println(j);
+                    return j;
                 }
             }
         }
-        return found;
+        return -1;
     }
 
-    public void updateBill()
+    public void updateBill(int num, Item item)
     {
+        double newvalue;
+        int newvalue2;
+        if(item instanceof DraftInterface) {
+            newvalue = ((DraftInterface) list.get(num)).getVolume()+ ((DraftInterface) item).getVolume();
+            ((DraftInterface) list.get(num)).setVolume(newvalue);
 
+            /*
+            newvalue = ((DraftInterface) list.get(num)).getPrice();
+            ((DraftInterface) list.get(num)).setPrice(newvalue);
+            */
+        }
+        else if(item instanceof Fruit){
+            newvalue = ((Fruit) list.get(num)).getWeight() + ((Fruit) item).getWeight();
+            ((Fruit) list.get(num)).setWeight(newvalue);
+        }
+        else if(item instanceof Pce){
+            newvalue2 = ((Pce) list.get(num)).getAmount() + ((Pce) item).getAmount();
+            ((Pce) list.get(num)).setAmount(newvalue2);
+        }
     }
 
     public void printItems()
