@@ -44,8 +44,6 @@ public class Application {
         {
             System.out.println("Price in USD: " + bill.getTotalPriceUSD());
 
-            XML totalBill = new XML();
-            totalBill.createXML(bill);
             bill.end();
         }
         catch (Exception e)

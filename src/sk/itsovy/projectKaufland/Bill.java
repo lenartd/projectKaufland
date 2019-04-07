@@ -1,6 +1,7 @@
 package sk.itsovy.projectKaufland;
 
 import sk.itsovy.Database.Database;
+import sk.itsovy.Database.Mongo;
 import sk.itsovy.Exception.BillException;
 import sk.itsovy.Items.Drink.Bottle;
 import sk.itsovy.Items.Drink.DraftInterface;
@@ -74,6 +75,11 @@ public class Bill {
             {
                 Database db = Database.getInstanceDB();
                 db.insertNewBill(this);
+                Mongo db2 = Mongo.getMongoInstance();
+                db2.insertBill(this);
+
+                XML myBill = new XML();
+                myBill.createXML(this);
             }
             catch (Exception e)
             {
@@ -135,20 +141,18 @@ public class Bill {
     {
         double newvalue;
         int newvalue2;
-        if(item instanceof DraftInterface) {
+        if(item instanceof DraftInterface)
+        {
             newvalue = ((DraftInterface) list.get(num)).getVolume()+ ((DraftInterface) item).getVolume();
             ((DraftInterface) list.get(num)).setVolume(newvalue);
-
-            /*
-            newvalue = ((DraftInterface) list.get(num)).getPrice();
-            ((DraftInterface) list.get(num)).setPrice(newvalue);
-            */
         }
-        else if(item instanceof Fruit){
+        else if(item instanceof Fruit)
+        {
             newvalue = ((Fruit) list.get(num)).getWeight() + ((Fruit) item).getWeight();
             ((Fruit) list.get(num)).setWeight(newvalue);
         }
-        else if(item instanceof Pce){
+        else if(item instanceof Pce)
+        {
             newvalue2 = ((Pce) list.get(num)).getAmount() + ((Pce) item).getAmount();
             ((Pce) list.get(num)).setAmount(newvalue2);
         }

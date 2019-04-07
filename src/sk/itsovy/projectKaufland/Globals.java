@@ -8,8 +8,8 @@ public class Globals {
     public static final String host = "jdbc:mysql://localhost:3306/kaufland_database?useSSL=false";
 
     public static final String userNameM= "root";
-    public static final String passwordM = "toor";
-    public static final String dbname = "kaufland_database";
+    public static final String passwordM = "";
+    public static final String dbnameM = "kaufland_database";
     public static final int portM = 27017;
-    public static final String hostM = "localhost";
+    public static final String hostM = "mongodb://localhost:" + portM;
 }
